@@ -22,10 +22,11 @@ export default function OptionsDialog({open, handleClose}) {
                     <DialogContentText>
                     </DialogContentText>
                     <FormGroup>
-                        <FormControlLabel control={<Checkbox />} label="Inserisci cognome-nome" />
+                        <FormControlLabel control={<Checkbox />} label="Inserisci spazio cognome - nome" />
                         <FormControlLabel control={<Checkbox />} label="Inserisci sottotitolo" />
                         <FormControlLabel control={<Checkbox />} label="Inserisci numero di pagina" />
                         <FormControlLabel control={<Checkbox />} label="Numera documenti" />
+                        <FormControlLabel control={<Checkbox />} label="Numero documento preciso" />
                         <FormControlLabel control={<Checkbox />} label="Numera domande" />
                         <FormControlLabel control={<Checkbox />} label="Mescola domande" />
                         <FormControlLabel control={<Checkbox />} label="Mescola risposte" />

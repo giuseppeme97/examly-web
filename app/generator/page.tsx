@@ -13,22 +13,102 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import OptionsDialog from "../ui/optionsDialog";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+declare module '@mui/material/styles' {
+  interface Palette {
+    ochre: Palette['primary'];
+  }
+
+  interface PaletteOptions {
+    ochre?: PaletteOptions['primary'];
+  }
+}
+
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    ochre: true;
+  }
+}
+
+const theme = createTheme({
+  palette: {
+    ochre: {
+      main: '#E3D026',
+      light: '#E9DB5D',
+      dark: '#A29415',
+      contrastText: '#242105',
+    },
+  },
+});
 
 export default function Home() {
   const [source, setSource] = useState('');
-  const [opendedOptionsDialog, setOpendedOptionsDialog] = useState(false);
+  const [optionsDialog, setOptionsDialog] = useState(false);
+  const [styleDialog, setStyleDialog] = useState(false);
+  const [documentTitle, setDocumentTitle] = useState("Verifica scritta di Sistemi e Reti - A.S. 2024/2025 - Classe 3F");
+  const [documentSubtitle, setDocumentSubtitle] = useState("Segnare solo una delle quattro opzioni per ciascuna domanda.");
+  const [documentFilename, setDocumentFilename] = useState("esame");
+  const [zipFilename, setZipFilename] = useState("compito");
+  const [documentsNumber, setDocumentsNumber] = useState("20");
+  const [startNumber, setStartNumber] = useState("1");
+  const [questionsNumber, setQuestionsNumber] = useState("20");
 
   const openOptionsDialog = () => {
-    setOpendedOptionsDialog(true);
+    setOptionsDialog(true);
   };
 
-  const handleClose = () => {
-    setOpendedOptionsDialog(false);
+  const closeOptionsDialog = () => {
+    setOptionsDialog(false);
   };
 
-  const handleChange = (event: SelectChangeEvent) => {
+  const openStyleDialog = () => {
+    setStyleDialog(true);
+  };
+
+  const closeStyleDialog = () => {
+    setOptionsDialog(false);
+  };
+
+  const handleSource = (event: SelectChangeEvent) => {
     setSource(event.target.value);
   };
+
+  const handleNewTemplate = () => {
+  };
+
+  const handleLoadNewSource = () => {
+  };
+
+  const handleDocumentTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDocumentTitle(event.target.value);
+  };
+
+  const handleDocumentSubtitle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDocumentSubtitle(event.target.value);
+  };
+
+  const handleDocumentFilename = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDocumentFilename(event.target.value);
+  };
+
+  const handleZipFilename = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setZipFilename(event.target.value);
+  };
+
+  const handleDocumentsNumber = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDocumentsNumber(event.target.value);
+  };
+
+  const handleStartNumber = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setStartNumber(event.target.value);
+  };
+
+  const handleQuestionsNumber = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuestionsNumber(event.target.value);
+  };
+
+  const start = () => {};
 
   return (
     <Container maxWidth={'xl'}>
@@ -45,7 +125,7 @@ export default function Home() {
             <InputLabel>Sorgente</InputLabel>
             <Select
               value={source}
-              onChange={handleChange}
+              onChange={handleSource}
               autoWidth
               label="Sorgente"
               fullWidth
@@ -67,19 +147,19 @@ export default function Home() {
           <Button variant="contained" color='success' onClick={openOptionsDialog}>Stile...</Button>
         </Grid>
         <Grid size={12}>
-          <TextField label="Titolo del documento" variant="outlined" fullWidth />
+          <TextField label="Titolo del documento" variant="outlined" fullWidth value={documentTitle} onChange={handleDocumentTitle}/>
         </Grid>
         <Grid size={12}>
-          <TextField label="Sottotitolo del documento" variant="outlined" fullWidth />
+          <TextField label="Sottotitolo del documento" variant="outlined" fullWidth value={documentSubtitle} onChange={handleDocumentSubtitle}/>
         </Grid>
         <Grid size={6}>
-          <TextField label="Prefisso dei file" variant="outlined" fullWidth />
+          <TextField label="Prefisso dei file" variant="outlined" fullWidth value={documentFilename} onChange={handleDocumentFilename}/>
         </Grid>
         <Grid size={6}>
-          <TextField label="Nome del file zip" variant="outlined" fullWidth />
+          <TextField label="Nome del file zip" variant="outlined" fullWidth value={zipFilename} onChange={handleZipFilename}/>
         </Grid>
         <Grid size={4}>
-          <TextField label="Numero di esami" variant="outlined" type="number"
+          <TextField label="Numero di esami" variant="outlined" type="number" value={documentsNumber} onChange={handleDocumentsNumber}
             slotProps={{
               inputLabel: {
                 shrink: true,
@@ -88,7 +168,7 @@ export default function Home() {
             fullWidth />
         </Grid>
         <Grid size={4}>
-          <TextField label="Numero di inizio" variant="outlined" type="number"
+          <TextField label="Numero di inizio" variant="outlined" type="number" value={startNumber} onChange={handleStartNumber}
             slotProps={{
               inputLabel: {
                 shrink: true,
@@ -97,7 +177,7 @@ export default function Home() {
             fullWidth />
         </Grid>
         <Grid size={4}>
-          <TextField label="Numero di domande per esame" variant="outlined" type="number"
+          <TextField label="Numero di domande per esame" variant="outlined" type="number" value={questionsNumber} onChange={handleQuestionsNumber}
             slotProps={{
               inputLabel: {
                 shrink: true,
@@ -114,15 +194,20 @@ export default function Home() {
         justifyContent: "center",
         alignItems: "center",
       }}>
-        <Grid size={6}>
+        <Grid size={1}>
           <FormGroup>
-            <FormControlLabel control={<Checkbox defaultChecked />} label="Label" />
-            <FormControlLabel required control={<Checkbox />} label="Required" />
-            <FormControlLabel disabled control={<Checkbox />} label="Disabled" />
+            <FormControlLabel control={<Checkbox/>} label="Filtro 1" />
           </FormGroup>
         </Grid>
+        <Grid size={11}>
+        </Grid>
+        <Grid size={12}>
+          <ThemeProvider theme={theme}>
+            <Button variant="contained" color='ochre' onClick={() => {}} fullWidth>Genera esami</Button>
+          </ThemeProvider>
+        </Grid>
       </Grid>
-      <OptionsDialog open={opendedOptionsDialog} handleClose={handleClose} />
+      <OptionsDialog open={optionsDialog} handleClose={closeOptionsDialog} />
     </Container>
   );
 }

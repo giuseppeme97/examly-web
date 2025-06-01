@@ -13,9 +13,7 @@ export default function StyleDialog({open, handleClose}) {
     
     return (
         <React.Fragment>
-            <Dialog
-                open={open}
-                onClose={handleClose}
+            <Dialog open={open} onClose={handleClose}
             >
                 <DialogTitle>Opzioni</DialogTitle>
                 <DialogContent>
